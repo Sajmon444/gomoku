@@ -62,6 +62,21 @@ def sprawdz_wygrana(gracze, gracz):
                 print(Fore.WHITE, "Gracz", gracz, "wygrał!", end="")
                 quit()
 
+    # Sprawdzenie przekątnych "/"
+    # Zaczynamy sprawdzać w wieszu 5 mapy, sprawdzamy po przekątnej w górę w prawą stronę, po czym przesuwamy się o jedno w prawo i znowu sprzawdzamy przekątną. Następnie, gdy w danym wierszu nie ma więcej możliwości, to idziemy jeden wiersz w dół i znowu sprzawdzamy.
+    for i in range(4, size): #pętla powtarza się tyle razy, ile wysokość planszy, zaczynając od 4, ponieważ wcześniej nie zmieści się 5 takich samych znaków
+        for j in range(size-4): #pętla powtarza się tyle razy ile szerokość planszy -4, ponieważ inaczej w warunku poniżej wyjdziemy za listę
+            if [gracze[i-k][j+k] for k in range(5)] == [gracz]*5: #tworzymy listę 5 elementów (zaczynamy na jakimś indeksie listy, a poźniej skaczemy o jedno w prawo i jedno w górę) i sprawdzamy, czy ma 5 znaków X lub O
+                print(Fore.WHITE, "Gracz", gracz, "wygrał!", end="")
+                quit()
+    # Sprawdzenie przekątnych "\"
+    # Zaczynamy sprawdzać w początku mapy (punkt 0,0), sprawdzamy po przekątnej w dół w prawą stronę, po czym przesuwamy się o jedno w prawo i znowu sprzawdzamy przekątną. Następnie, gdy w danym wierszu nie ma więcej możliwości, to idziemy jeden wiersz w dół i znowu sprzawdzamy.
+    for i in range(size-4): #pętla powtarza się tyle razy ile wysokość -4, ponieważ niżej nie może już być 5 takich samych elementó po skosie
+        for j in range(size-4): #pętla powtarza się tyle razy ile szerokość, a odejmujemy 4, żeby w warunku niżej nie wyjść poza listę
+            if [gracze[i+k][j+k] for k in range(5)] == [gracz]*5: #tworzymy listę 5 elementów (zaczynamy na jakimś indeksie listy, a poźniej skaczemy o jedno w prawo i jedno w dół) i sprawdzamy, czy ma 5 znaków X lub O
+                print(Fore.WHITE, "Gracz", gracz, "wygrał!", end="")
+                quit()
+
 
 if __name__ == "__main__":
     rozmiar = 15
@@ -79,13 +94,13 @@ if __name__ == "__main__":
         
         mapa(gracze)
         
-        if gracz == "X": print(Fore.GREEN,"Gracz 1\n")
-        else: print(Fore.RED,"Gracz 2\n")
+        if gracz == "X": print(Fore.GREEN,"Gracz X\n")
+        else: print(Fore.RED,"Gracz O\n")
 
         sprawdzanie=True
         while sprawdzanie==True :    
-            x = int(input("Podaj wsp x: "))
-            y = int(input("Podaj wsp y: "))
+            x = int(input("Podaj x: "))
+            y = int(input("Podaj y: "))
             if x>=0 and x<=14 and y>=0 and x<=14:
                 if gracze[y][x]!="X" and  gracze[y][x]!="O" :
                 
